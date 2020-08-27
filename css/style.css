@@ -9,7 +9,7 @@ body {
 	font-family: 'Russo One',
 		sans-serif;
 	font-weight: bold;
-	font-size: 40px;
+	font-size: 46px;
 	color: #f68787;
 
 	background-color: #333;
@@ -29,30 +29,49 @@ body {
 
 .square {
 	height: 100px;
+
 	text-align: center;
 	line-height: 100px;
 	border: 2px solid black;
 	border-radius: 5px;
 	background-color: rgb(31, 30, 30);
 	cursor: pointer;
-	transition: .3s ease;
+
+	text-shadow: 2px 2px 2px black;
+
 }
 
 .square:hover {
+	opacity: 0.4;
+	border: 2px solid white;
+	box-shadow: 0 0 5px #fff,
+		0 0 2px #fff,
+		0 0 3px white,
+		0 0 4px white,
+		0 0 5px white,
+		0 0 6px white,
+		0 0 7px white;
 
-	border: 2px solid #f68787;
-	box-shadow: 1px 1px 2px 1px #f68787,
-		-1px -1px 2px 1px #f68787;
+
+	/* box-shadow: 2px 2px 1px 4px #e08c8c,
+		-2px -2px 1px 4px #f68787; */
+}
+
+.square.clicked {
+	box-shadow: inset 3px 3px 2px rgb(31, 30, 30);
+}
+
+.square.clicked:hover {
+	opacity: 1;
+	border: 2px solid black;
 }
 
 .square.big {
 	background-color: #a4f6a5;
-	color: #f68787;
-	/* color: #f8a978; */
+	color: #f6a4a4;
 }
 
 .square.small {
 	background-color: #f1eb9a;
-	/* color: #f8a978; */
-	color: #f68787;
+	color: #e59af1;
 }
