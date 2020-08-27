@@ -6,28 +6,18 @@ Il numero ottenuto appare al centro del quadrato. */
 
 $(function () {
 
-	for (let i = 0; i < 36; i++) {
-		$('.container').append('<div class="square"></div>');
-	}
-
 	$('.container').on('click', '.square', function () {
 
 		let quadrato = $(this);
-		console.log(quadrato);
+
 
 		if (!quadrato.hasClass('clicked')) {
 
 			$.ajax({
 				'url': "https://flynn.boolean.careers/exercises/api/random/int",
 				'method': "GET",
-				'success': function (data) {
-
-					quadrato.addClass('clicked');
-
-					let risposta = data.response;
-					quadrato.text(risposta);
-
-					risposta >= 5 ? quadrato.addClass('big') : quadrato.addClass('small');
+				'success': function (data, text, jq) {
+					retrieveNumber(data, quadrato);
 				},
 				'error': function () {
 					alert("E' avvenuto un errore. ");
@@ -35,18 +25,51 @@ $(function () {
 			});
 
 		} else {
-			alert('already clicked')
+			fading(quadrato);
+			console.log('already clicked');
 		}
 
 
 
 	});
 
+	for (let i = 0; i < 36; i++) {
+		$('.container').append('<div class="square"></div>');
+	}
+
+
 
 	/* funzioni */
 
+	function retrieveNumber(obj, element) {
+		element.addClass('clicked');
+		let risposta = obj.response;
+		element.text(risposta);
+		risposta >= 5 ? element.addClass('big') : element.addClass('small');
+	}
 
 
+	function fading(element) {
+		for (let i = 0; i < 6; i++) {
+			element.fadeOut(80);
+			element.fadeIn(80);
+		}
+	}
+	/* 
+		function animation(element) {
 
+			element.animate({
+				scale: 1.1,
+
+				opacity: 0.4
+
+			}, 200);
+
+			element.animate({
+				scale: 1,
+				opacity: 1
+
+			}, 200);
+		} */
 
 });
