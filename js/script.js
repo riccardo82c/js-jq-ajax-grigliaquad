@@ -3,6 +3,7 @@ Se è <= 5 il quadrato diventa giallo, se è > di 5 il quadrato diventa verde.
 Il numero ottenuto appare al centro del quadrato. */
 
 $(function () {
+	const squareNumber = 36;
 
 
 	// metodo on('click') mi permette di definire un evento ad un elemento, tale evento può essere associato anche ad un elemento che non è ancora stato creato, poichè on permette di RESTARE IN ATTESA della creazione della griglia.
@@ -13,21 +14,20 @@ $(function () {
 
 		// Se quadrato NON ha la classe clicked...
 		if (!quadrato.hasClass('clicked')) {
+
 			// Chiamata ad AJAX
 			$.ajax({
 				'url': "https://flynn.boolean.careers/exercises/api/random/int",
 				'method': "GET",
 				// In caso di success della chiamata chiamo la funzione che come parametri mi restituisce data (valore restituito dalla chiamata)
 				'success': function (data, stato, jq) {
-					console.log(stato);
-					console.log(jq.status);
+
 					retrieveNumber(data, quadrato);
+
 				},
 				// In caso di errore
 				'error': function (richiesta, stato, errori) {
-					console.log(richiesta.status);
-					console.log(stato);
-					console.log(errori);
+
 					alert("E' avvenuto un errore.");
 				}
 			});
@@ -41,14 +41,13 @@ $(function () {
 	});
 
 	// Creo la griglia tramite .append(template string). Posso invocare la creazione della griglia senza problemi poichè uso on('click') partendo dall'elemento genitore (esistente) sull'elemento figlio (ancora da creare). Ascoltatore di eventi
-
 	createGrid();
 
 	/* funzioni */
 
 
 	function createGrid() {
-		for (let i = 0; i < 36; i++) {
+		for (let i = 0; i < squareNumber; i++) {
 			$('.container').append('<div class="square"></div>');
 		}
 
@@ -59,6 +58,11 @@ $(function () {
 		let risposta = obj.response;
 		element.text(risposta);
 		risposta >= 5 ? element.addClass('big') : element.addClass('small');
+		// Se il numero di quadrati con la classe clicked è uguale al numero di quadrati faccio li reload della pagina
+		if ($('.square.clicked').length == squareNumber) {
+			alert('Game End');
+			location.reload();
+		}
 	}
 
 
